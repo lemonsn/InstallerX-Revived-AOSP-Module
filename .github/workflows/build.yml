@@ -172,11 +172,11 @@ jobs:
           OUT=build/module
           rm -rf build && mkdir -p build
           cp -a module "$OUT"
-          DIR="$OUT/system/priv-app/PackageInstaller"
+          DIR="$OUT/system/priv-app/ZuiPackageInstaller"
           mkdir -p "$DIR/oat" "$DIR/lib"
           # Hide any stock odex/libs at this path so they never pair with the replaced APK.
           touch "$DIR/oat/.replace" "$DIR/lib/.replace"
-          cp "${{ steps.apk.outputs.path }}" "$DIR/PackageInstaller.apk"
+          cp "${{ steps.apk.outputs.path }}" "$DIR/ZuiPackageInstaller.apk"
           cat > "$OUT/module.prop" <<EOF
           id=com.android.packageinstaller
           name=InstallerX Revived (System)
@@ -187,7 +187,7 @@ jobs:
           updateJson=https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/update.json
           EOF
           sed -i 's/^ *//' "$OUT/module.prop"
-          ZIP="InstallerX-Revived-AOSP-$TAG.zip"
+          ZIP="InstallerX-Revived-ZUXOS-$TAG.zip"
           (cd "$OUT" && zip -r9 "../$ZIP" .)
           unzip -l "build/$ZIP"
           echo "zip=build/$ZIP" >> "$GITHUB_OUTPUT"
